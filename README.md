@@ -1,7 +1,7 @@
 # django 수어 번역기 서버
 
 ## 실행 방법
-1. cd 명령어로 my-first-blog로 이동
+1. cd 명령어로 SignLangDjango로 이동
 
 2. 가상 환경 구성  
 $ C:\Python37\python -m venv myvenv  
