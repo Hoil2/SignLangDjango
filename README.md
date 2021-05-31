@@ -4,7 +4,7 @@
 1. cd 명령어로 my-first-blog로 이동
 
 2. 가상 환경 구성  
-$ C:\Python37\python -m venv myvenv
+$ C:\Python37\python -m venv myvenv  
 (C:\Python37은 python이 설치된 경로임)
 
 3. 가상 환경 실행  
