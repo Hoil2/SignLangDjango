@@ -70,5 +70,5 @@ const camera = new Camera(videoElement, {
 camera.start();
 
 window.onload = function() {
-  //setTimeout(sendImage, 100);
+  setTimeout(sendImage, 100);
 }
