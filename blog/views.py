@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 #from django.http import HttpResponse
+from ipware import get_client_ip
 
 import cv2
 #import os
@@ -11,21 +12,39 @@ import base64
 import json
 import numpy as np
 from .test_app import * #.을 붙여야 함
+import datetime
+import threading
 
-model = myModel()
+modelList = []
+ipList = {}
+ipCnt = 0
+lastRun = []
 
 def post_list(request):
+    ip, is_routable = get_client_ip(request)
+    print("초기화")
+    if ip is None:
+        print('ip 얻을 수 없음')
+    else :
+        if ip not in ipList.keys():
+            ipList[ip] = len(ipList)
+            lastRun.append(None)
+            modelList.append(myModel())
+            print("ip 등록 ", ip)
     return render(request, 'blog/post_list.html', {})
 
 @csrf_exempt
 def ajax(request):
     #data = request.POST.get('img', None)
     if request.method == 'POST':
+        ip, _ = get_client_ip(request)
+        lastRun[ipList[ip]] = datetime.datetime.now() #마지막 실행 시간 기록
         json_data = json.loads(request.body)
+
         #print(json_data[0][0]['x'])
         img = makeLandmarkImage(json_data)
         #img = readb64(data)
-        word = model.predictImages(img)
+        word = modelList[ipList[ip]].predictImages(img)
         if word == None:
             word = ''
         
@@ -39,3 +58,19 @@ def readb64(uri):
     nparr = np.frombuffer(base64.b64decode(encoded_data), np.uint8)
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     return img
+
+def removeUserInfo():
+    print("유저 정보 삭제 실행")
+    for i in range(len(lastRun)):
+        diff = datetime.datetime.now() - lastRun[i]
+        if diff.seconds / 60 > 30:
+            print(list(ipList.keys())[i], " 정보 삭제")
+            del ipList[list(ipList.keys())[i]]
+            del modelList[i]
+            del lastRun[i]
+
+            for i in range(len(ipList)):
+                ipList[list(ipList.keys()[i])] = i
+    threading.Timer(600, removeUserInfo).start()
+
+threading.Timer(600, removeUserInfo).start()

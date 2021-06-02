@@ -1,7 +1,6 @@
 body {
     bottom: 0;
     font-family: 'Titillium Web', sans-serif;
-    color: white;
     left: 0;
     margin: 0;
     position: absolute;
@@ -13,7 +12,7 @@ body {
 
 .container {
     position: absolute;
-    background-color: #596e73;
+    /*background-color: #596e73;*/
     height: 720px;
     width: 1280px;
 }
@@ -22,13 +21,16 @@ body {
     position:absolute;
     height: 720px;
     width: 1280px;
-    top: 0;
+    top: 90;
     left: 0;
     transform: scale(-1, 1);
+    
 }
 
 .output_canvas {
-    position:relative;
-    left: 0;
-    top: 0;
+    display: none;
+}
+
+#result {
+    margin-left: 30px;
 }

@@ -3,8 +3,10 @@ const videoElement =
 const canvasElement =
     document.getElementsByClassName('output_canvas')[0];
 var canvasCtx = canvasElement.getContext('2d');
+var resultElement = 
+  document.getElementById('result');
 
-var landmarks;
+var landmarks = null;
 function onResults(results) {
   // Draw the overlays.
   canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
@@ -28,8 +30,11 @@ function onResults(results) {
 }
 
 function sendImage() {
+  if(landmarks == null) {
+    setTimeout(sendImage, 100);
+    return;
+  }
   //while(!landmarks) {}
-
   //var dataURL = canvasElement.toDataURL();
   $.ajax({
     type: "POST",
@@ -38,7 +43,8 @@ function sendImage() {
     dataType: "json",
     success:function(data){
       if(data.word != '') {
-        console.log(data.word);
+        resultElement.innerHTML = data.word;
+        //console.log(data.word);
       }
       sendImage();
     },
@@ -62,4 +68,7 @@ const camera = new Camera(videoElement, {
   height: 720
 });
 camera.start();
-setTimeout(sendImage, 1000);
+
+window.onload = function() {
+  //setTimeout(sendImage, 100);
+}
