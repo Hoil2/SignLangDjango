@@ -9,6 +9,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.post_list, name='detectme'),
+    path('', views.post_list, name='post_list'),
     path('ajax', views.ajax, name='ajax'),
+    path('init', views.init, name='init'),
 ]

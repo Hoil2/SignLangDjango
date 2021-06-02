@@ -49,7 +49,7 @@ function sendImage() {
       sendImage();
     },
     error: function(request,status,error) {
-      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+      //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
       sendImage();
     }
   })
@@ -69,6 +69,14 @@ const camera = new Camera(videoElement, {
   height: 720
 });
 camera.start();
+
+$.ajax({
+  type: "POST",
+  url: "/init", 
+  success:function(data){
+    console.log(data.ipIndex);
+  }
+})
 
 window.onload = function() {
   setTimeout(sendImage, 100);

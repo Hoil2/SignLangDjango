@@ -17,21 +17,27 @@ import threading
 
 modelList = []
 ipList = {}
-ipCnt = 0
 lastRun = []
 
 def post_list(request):
-    ip, is_routable = get_client_ip(request)
-    print("초기화")
-    if ip is None:
-        print('ip 얻을 수 없음')
-    else :
-        if ip not in ipList.keys():
-            ipList[ip] = len(ipList)
-            lastRun.append(None)
-            modelList.append(myModel())
-            print("ip 등록 ", ip)
     return render(request, 'blog/post_list.html', {})
+
+@csrf_exempt
+def init(request):
+    if request.method == 'POST':
+        ip, is_routable = get_client_ip(request)
+        print("초기화")
+        if ip is None:
+            print('ip 얻을 수 없음')
+        else :
+            if ip not in ipList.keys():
+                ipList[ip] = len(ipList)
+                lastRun.append(None)
+                modelList.append(myModel())
+                print("ip 등록 ", ip)
+
+    content = { 'ipIndex':  len(ipList) }
+    return JsonResponse(content)
 
 @csrf_exempt
 def ajax(request):
