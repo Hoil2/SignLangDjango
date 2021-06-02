@@ -38,7 +38,11 @@ def ajax(request):
     #data = request.POST.get('img', None)
     if request.method == 'POST':
         ip, _ = get_client_ip(request)
+        #print("마지막 실행 시간: ", lastRun[0])
         lastRun[ipList[ip]] = datetime.datetime.now() #마지막 실행 시간 기록
+        
+        #print("현재 ip: ", ip)
+        #print("ipList index: ",ipList[ip])
         json_data = json.loads(request.body)
 
         #print(json_data[0][0]['x'])
