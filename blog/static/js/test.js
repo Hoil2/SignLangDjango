@@ -49,6 +49,7 @@ function sendImage() {
       sendImage();
     },
     error: function(xhr, ajaxOptions, thrownError) {
+      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
       sendImage();
     }
   })
