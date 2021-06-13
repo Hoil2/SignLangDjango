@@ -26,7 +26,7 @@ class Conv3DModel(tf.keras.Model):
 
         # Dense layers
         self.d1 = tf.keras.layers.Dense(128, activation='relu', name="d1")
-        self.out = tf.keras.layers.Dense(4, activation='softmax', name="output")
+        self.out = tf.keras.layers.Dense(len(classes), activation='softmax', name="output")
     
     def call(self, x):
         x = self.conv1(x)
@@ -39,10 +39,19 @@ class Conv3DModel(tf.keras.Model):
         return self.out(x)
 
 #예측 단어
+'''
 classes = [
     "왼쪽", "오른쪽", "화장실", "오늘"
     ]
-
+'''
+classes = [
+    "-", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "100",
+    "1층", "2층", "3층", "4층", "5층", "6층",
+    "가다", "계단", "괜찮다", "교실", "나쁘다", "내려가다", "대학교",
+    "되다", "뒤", "만나다", "반갑다", "수어", "시작", "안내", "안녕하세요",
+    "안돼", "앞", "어디", "예쁘다", "오르다", "오른쪽", "왼쪽", "위치",
+    "이쪽", "좋다", "컴퓨터", "헤어지다", "화장실"
+]
 width = 1280
 height = 720
 
@@ -53,7 +62,7 @@ class myModel():
         self.new_model = Conv3DModel()
         self.new_model.compile(loss='sparse_categorical_crossentropy',
                         optimizer=tf.keras.optimizers.RMSprop())
-        modelURL = staticfiles_storage.path('model/model_128_landmark')
+        modelURL = staticfiles_storage.path('model/model')
         self.new_model.load_weights(modelURL)
 
         self.mpHands = mp.solutions.hands
