@@ -17,7 +17,8 @@ $ python -m pip install --upgrade pip
 $ pip install django~=2.0.0  
 $ pip install mediapipe  
 $ pip install tensorflow  
-$ pip install opencv-python
+$ pip install opencv-python  
+$ pip install django-ipware  
 
 6. 서버 실행  
 $ python manage.py runserver
