@@ -25,5 +25,5 @@ $ python manage.py runserver
 7. 브라우저로 127.0.0.1:8000 접속
 
 만약 로컬에서 실행 중에 오류가 발생한다면  
-settings.py에서 DEBUG가 False인지 확인
+settings.py에서 DEBUG가 False인지 확인  
 로컬에서는 DEBUG가 True여야 실행 가능
