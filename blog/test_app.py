@@ -43,7 +43,8 @@ class Conv3DModel(tf.keras.Model):
 classes = [
     "왼쪽", "오른쪽", "화장실", "오늘"
     ]
-'''
+
+
 classes = [
     "-", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "100",
     "1층", "2층", "3층", "4층", "5층", "6층",
@@ -52,6 +53,11 @@ classes = [
     "안돼", "앞", "어디", "예쁘다", "오르다", "오른쪽", "왼쪽", "위치",
     "이쪽", "좋다", "컴퓨터", "헤어지다", "화장실"
 ]
+'''
+classes = [
+    "-", "오른쪽", "왼쪽",  "화장실", "어디"
+    ]
+
 width = 1280
 height = 720
 
@@ -62,7 +68,7 @@ class myModel():
         self.new_model = Conv3DModel()
         self.new_model.compile(loss='sparse_categorical_crossentropy',
                         optimizer=tf.keras.optimizers.RMSprop())
-        modelURL = staticfiles_storage.path('model/model')
+        modelURL = staticfiles_storage.path('model/test2')
         self.new_model.load_weights(modelURL)
 
         self.mpHands = mp.solutions.hands

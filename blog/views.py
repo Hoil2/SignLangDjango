@@ -66,7 +66,7 @@ def ajax(request):
             modelList[ip] = myModel()
             word, acc = modelList[ip].predictImages(img)
             
-        if word == None:
+        if word == None or word == '-':
             word = ''
             acc = 0
         
