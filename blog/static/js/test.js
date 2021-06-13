@@ -1,41 +1,38 @@
 const videoElement =
     document.getElementsByClassName('input_video')[0];
-const canvasElement =
-    document.getElementsByClassName('output_canvas')[0];
-var canvasCtx = canvasElement.getContext('2d');
+//const canvasElement =
+    //document.getElementsByClassName('output_canvas')[0];
+//var canvasCtx = canvasElement.getContext('2d');
 var resultElement = 
   document.getElementById('result');
 
 var landmarks = null;
 function onResults(results) {
   // Draw the overlays.
+  /*
   canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
   canvasCtx.drawImage(
     results.image, 0, 0, canvasElement.width, canvasElement.height);
 
     canvasCtx.drawImage(
       results.image, 0, 0, canvasElement.width, canvasElement.height);
-  
+  */
   if (results.multiHandLandmarks && results.multiHandedness) {
     // 손 개수만큼 반복
     landmarks = results.multiHandLandmarks;
-    //for (let index = 0; index < results.multiHandLandmarks.length; index++) {
-      //const classification = results.multiHandedness[index];
-      //landmarks = results.multiHandLandmarks[index];
-      // landmarks는 21개의 배열이고, 각각 좌표값을 가지고 있음.
-      // 좌측 맨 위가 0,0 우측 맨 아래가 1,1의 좌표로 구성됨
-      // 실제 좌표로 변환하려면 canvas 해상도를 곱해주면 됨\
-    //}
+    // landmarks는 2차원 배열이고, 각각 좌표값을 가지고 있음.
+    // 좌측 맨 위가 0,0 우측 맨 아래가 1,1의 좌표로 구성됨
+    // 실제 좌표로 변환하려면 canvas 해상도를 곱해주면 됨\
+    // landmarks[0] : 첫번째 손
+    // landmarks[0][0].x : 첫번째 손의 0번 id의 x좌표
   }
 }
 
-function sendImage() {
+function sendPos() {
   if(landmarks == null) {
-    setTimeout(sendImage, 100);
+    setTimeout(sendPos, 100);
     return;
   }
-  //while(!landmarks) {}
-  //var dataURL = canvasElement.toDataURL();
   $.ajax({
     type: "POST",
     url: "/ajax", 
@@ -46,11 +43,10 @@ function sendImage() {
         resultElement.innerHTML = data.word;
         //console.log(data.word);
       }
-      sendImage();
+      sendPos();
     },
     error: function(request,status,error) {
-      //alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-      sendImage();
+      sendPos();
     }
   })
 }
@@ -74,10 +70,10 @@ $.ajax({
   type: "POST",
   url: "/init", 
   success:function(data){
-    console.log(data.ipIndex);
+    console.log(data.ip);
   }
 })
 
 window.onload = function() {
-  setTimeout(sendImage, 100);
+  setTimeout(sendPos, 100);
 }

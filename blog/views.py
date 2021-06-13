@@ -15,9 +15,9 @@ from .test_app import * #.을 붙여야 함
 import datetime
 import threading
 
-modelList = []
-ipList = {}
-lastRun = []
+modelList = {}
+ipList = []
+lastRun = {}
 
 def post_list(request):
     return render(request, 'blog/post_list.html', {})
@@ -30,13 +30,13 @@ def init(request):
         if ip is None:
             print('ip 얻을 수 없음')
         else :
-            if ip not in ipList.keys():
-                ipList[ip] = len(ipList)
-                lastRun.append(None)
-                modelList.append(myModel())
+            if ip not in ipList:
+                ipList.append(ip)
+                lastRun[ip] = ''
+                modelList[ip] = myModel()
                 print("ip 등록 ", ip)
 
-    content = { 'ipIndex':  len(ipList) }
+    content = { 'ip':  ip }
     return JsonResponse(content)
 
 @csrf_exempt
@@ -45,7 +45,7 @@ def ajax(request):
     if request.method == 'POST':
         ip, _ = get_client_ip(request)
         #print("마지막 실행 시간: ", lastRun[0])
-        lastRun[ipList[ip]] = datetime.datetime.now() #마지막 실행 시간 기록
+        lastRun[ip] = datetime.datetime.now() #마지막 실행 시간 기록
         
         #print("현재 ip: ", ip)
         #print("ipList index: ",ipList[ip])
@@ -54,7 +54,7 @@ def ajax(request):
         #print(json_data[0][0]['x'])
         img = makeLandmarkImage(json_data)
         #img = readb64(data)
-        word = modelList[ipList[ip]].predictImages(img)
+        word = modelList[ip].predictImages(img)
         if word == None:
             word = ''
         
@@ -71,16 +71,13 @@ def readb64(uri):
 
 def removeUserInfo():
     print("유저 정보 삭제 실행")
-    for i in range(len(lastRun)):
-        diff = datetime.datetime.now() - lastRun[i]
+    for ip in ipList:
+        diff = datetime.datetime.now() - lastRun[ip]
         if diff.seconds / 60 > 30:
-            print(list(ipList.keys())[i], " 정보 삭제")
-            del ipList[list(ipList.keys())[i]]
-            del modelList[i]
-            del lastRun[i]
-
-            for i in range(len(ipList)):
-                ipList[list(ipList.keys()[i])] = i
+            print(ip, " 정보 삭제")
+            del ipList[ip]
+            del modelList[ip]
+            del lastRun[ip]
     threading.Timer(600, removeUserInfo).start()
 
 threading.Timer(600, removeUserInfo).start()
