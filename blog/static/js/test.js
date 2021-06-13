@@ -77,3 +77,4 @@ $.ajax({
 window.onload = function() {
   setTimeout(sendPos, 100);
 }
+ 
