@@ -129,9 +129,9 @@ class myModel():
                 
                 #print('Classe = ',classe, 'Precision = ', np.amax(predict)*100,'%')
                 self.to_predict = []
-                return self.classe
+                return self.classe, np.amax(predict)*100
                 #sleep(0.1) # Time in seconds
-            return None
+            return None, None
         except Exception as e:
             print('predictImages error', e)
             pass

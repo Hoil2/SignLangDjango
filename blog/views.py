@@ -61,15 +61,17 @@ def ajax(request):
         img = makeLandmarkImage(json_data)
         #img = readb64(data)
         try:
-            word = modelList[ip].predictImages(img)
+            word, acc = modelList[ip].predictImages(img)
         except KeyError:
             modelList[ip] = myModel()
-            word = modelList[ip].predictImages(img)
-            c
+            word, acc = modelList[ip].predictImages(img)
+            
         if word == None:
             word = ''
+            acc = 0
         
-    content = { 'word': word } 
+    content = { 'word': word,
+                'acc': acc } 
     
     #return HttpResponse(json.dumps(content), content_type="application/json")
     return JsonResponse(content)
