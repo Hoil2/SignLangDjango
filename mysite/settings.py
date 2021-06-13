@@ -22,7 +22,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0pr(dlvf4%64w!h=6u+fp&b7mm$y9f=#w21)6s$1oppbbsw1(5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# 중요!
+# 로컬에서 테스트할 때는 DEBUG가 True로 되어있어야 하고,
+# 배포할 때는 DEBUG가 False로 되어있야하 함
+# 테스트 중일 때 False면 오류 발생
+DEBUG = True
 
 #ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere']
 ALLOWED_HOSTS = ['127.0.0.1','hoiry.pythonanywhere.com']

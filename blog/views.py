@@ -19,8 +19,12 @@ modelList = {}
 ipList = []
 lastRun = {}
 
-def post_list(request):
-    return render(request, 'blog/post_list.html', {})
+def mainPage(request):
+    return render(request, 'blog/index.html', {})
+    
+@csrf_exempt
+def translationPage(request):
+    return render(request, 'blog/ts.html', {})
 
 @csrf_exempt
 def init(request):
