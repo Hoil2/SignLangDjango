@@ -14,6 +14,7 @@ import numpy as np
 from .test_app import * #.을 붙여야 함
 import datetime
 import threading
+import pymysql
 
 modelList = {}
 ipList = []
@@ -24,6 +25,22 @@ def mainPage(request):
     
 @csrf_exempt
 def translationPage(request):
+    '''
+    conn = pymysql.connect(host="127.0.0.1", user="root", password="1234", db="test", charset="utf8")
+    cur = conn.cursor()
+
+    sql = "select * from test_table where name='김홍일'"
+    cur.execute(sql)
+
+    row = cur.fetchone()
+    print("이름 : " + row[0] + " 나이 : " + str(row[1]))
+    data = {
+        'name' : row[0],
+        'age' : row[1]
+    }
+
+    conn.close()    # 접속 종료
+    '''
     return render(request, 'blog/ts.html', {})
 
 @csrf_exempt

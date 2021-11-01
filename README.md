@@ -19,6 +19,7 @@ $ pip install mediapipe
 $ pip install tensorflow  
 $ pip install opencv-python  
 $ pip install django-ipware  
+$ pip install PyMySql  
 
 6. 서버 실행  
 $ python manage.py runserver
