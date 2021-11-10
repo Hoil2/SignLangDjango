@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Django test</title>
+        <!--<link rel="icon" href="/favicon.ico">-->
+        <link rel="stylesheet" type="text/css" href="/blog/static/css/style.css" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.1/camera_utils.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils@0.1/control_utils.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.2/drawing_utils.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.1/hands.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    </head>
+    <body>
+      
+        <!-- 비디오 입력 -->
+        <div class="container">
+            <!-- 테스트 이미지 -->
+            <!--<img src="/img/test_img.png" width="960px" height="600px">-->
+            <video class="input_video" width="480px" height="300px"></video><br>
+            <canvas class="output_canvas" width="960px" height="600px"></canvas>
+            
+        </div>
+             <!-- 이쪽에 마이크로 음성 인식해서 출력하는 부분 넣어야 함-->
+        <!--<a href="http://dvcs.w3.org/hg/speech-api/raw-file/tip/speechapi.html">
+          Web Speech API</a> Demonstration</h1>-->
+
+            <!-- 음성인식 버튼 -->
+            <div class="right">
+                <button id="start_button" onclick="startButton(event)">
+                    <img id="start_img" width="80px" height="80px" src="/blog/static/img/mic.gif" alt="Start"></button>    
+            </div>
+          
+            <!-- 음성인식 결과 출력 (hide) -->
+            <form action="" method="">
+            <h1>
+              <div id="results">
+                  수어를 입력해주십시오
+                  <span id="final_span" class="final"></span>
+                  <span id="interim_span" class="interim"></span>
+              </div>
+              <div class="center">
+              <!-- 안내문자, 언어 설정 버튼 -->
+              <div id="div_language">
+                <select id="select_language" onchange="updateCountry()"></select>&nbsp;&nbsp;
+                <select id="select_dialect"></select>
+              </div>
+              <script src="/blog/static/js/landmark.js"></script>
+              <script src="/blog/static/js/ajax.js"></script>
+              <script src="/blog/static/js/mic.js"></script>
+              <script src="/blog/static/js/mapPopup.js"></script>
+            </h1>
+
+    </body>
+</html>

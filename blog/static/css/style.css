@@ -1,0 +1,82 @@
+body {
+  background-color: skyblue;
+  text-align: center;
+}
+
+
+div.right {
+  position: absolute; right: 350px;
+}
+
+div #results {
+  background-color: white;
+  width: 960px; 
+  position: relative;
+  left: 472px;
+}
+
+video {
+  visibility: hidden;
+}
+
+table {
+  text-align: center;
+}
+
+div #div_language {
+  visibility: hidden;
+}
+/*
+#div_btn button {
+  font-size: 18px;
+  border: 1px solid skyblue;
+  background-color: skyblue;
+  color: white;
+  padding: 5px;
+}
+
+#div_btn button:hover {
+  color: skyblue;
+  background-color: white;
+}
+*/
+
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #ffffff;
+  text-align: center;
+  font-size: 28px;
+  padding: 10px;
+  width: 150px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: "\00bb";
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
