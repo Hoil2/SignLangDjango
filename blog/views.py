@@ -41,7 +41,7 @@ def translationPage(request):
 
     conn.close()    # 접속 종료
     '''
-    return render(request, 'blog/ts.html', {})
+    return render(request, 'blog/interface.html', {})
 
 @csrf_exempt
 def init(request):
