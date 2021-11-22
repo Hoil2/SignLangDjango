@@ -16,7 +16,7 @@
         <div class="container">
             <!-- 테스트 이미지 -->
             <!--<img src="/img/test_img.png" width="960px" height="600px">-->
-            <video class="input_video" width="480px" height="300px"></video><br>
+            <video class="input_video" width="480px" height="150px"></video><br>
             <canvas class="output_canvas" width="960px" height="600px"></canvas>
             
         </div>
@@ -31,10 +31,13 @@
             </div>
           
             <!-- 음성인식 결과 출력 (hide) -->
-            <form action="" method="">
             <h1>
               <div id="results">
                   수어를 입력해주십시오
+                  <form>
+                    <input type="text" id="txt">
+                    <input type="submit" onclick="answer()">
+                </form>
                   <span id="final_span" class="final"></span>
                   <span id="interim_span" class="interim"></span>
               </div>
@@ -45,10 +48,9 @@
                 <select id="select_dialect"></select>
               </div>
               <script src="/blog/static/js/landmark.js"></script>
-              <script src="/blog/static/js/ajax.js"></script>
               <script src="/blog/static/js/mic.js"></script>
               <script src="/blog/static/js/mapPopup.js"></script>
+              <script src="/blog/static/js/ajax.js"></script>
             </h1>
-
     </body>
 </html>

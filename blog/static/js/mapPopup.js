@@ -1,50 +1,46 @@
 function answer() {
-    var list = document.getElementById("txt").value;
+    var words = document.getElementById("txt").value;
     var ans = "";
     
     //사무실 위치
-	if(check(list, "사무실", "어디")) {
+	if(check(words, "사무실", "정보")) {
         var info = "";
 
-        if(check(list, "융소과"))
+        if(check(words, "융소과"))
             info = "CS";
-        else if(check(list, "정통과"))
+        else if(check(words, "정통과"))
             info = "IC";
-        else if(check(list, "게임과"))
+        else if(check(words, "게임과"))
             info = "Game";
-        else if(check(list, "IT과"))
+        else if(check(words, "IT과"))
             info = "IT";
-        else if(check(list, "간호과"))
+        else if(check(words, "간호과"))
             info = "Nur";
         else {
-            alert("똑바로 입력해");
             return;
         }
-        //alert(ans);
         officeInfo(info);
         return;
     }
         
-    else if(check(list, "위치")) {
+    else if(check(words, "위치")) {
         //새탭 띄워서 맵 출력
         var location = "";
-        if(check(list, "효행관"))
+        if(check(words, "효행관"))
             location = "hyo";
-        else if(check(list, "효관"))
-            location = "hyo";
-        else if(check(list, "예의관"))
+        else if(check(words, "예의관"))
             location = "yeui";
-        else if(check(list, "충의관"))
+        else if(check(words, "충의관"))
             location = "chung";
-        else if(check(list, "승태관"))
+        else if(check(words, "승태관"))
             location = "seung";
-        else if(check(list, "창업관"))
+        else if(check(words, "창업관"))
             location = "chang";
-        else if(check(list, "송림관"))
+        else if(check(words, "송림관"))
             location = "song";
-        else if(check(list, "기념관"))
+        else if(check(words, "기념관"))
             location = "gi";
-        else if(check(list, "소석수련원"))
+        else if(check(words, "소석수련원"))
             location = "so";
         else {
             console.log("저장되지 않은 위치입니다.");
@@ -56,7 +52,7 @@ function answer() {
 	else
         ans = "잘못되었습니다. 다시 입력해주세요";
     console.log(ans);
-    alert(ans);
+    //alert(ans);
 }
 
 // 여러 개의 동적 매개변수를 받을 때 arguments를 사용
@@ -71,23 +67,15 @@ function check(list) {
 
 // 맵 팝업 새 창으로 띄우는 함수
 function mapPopup(location) {
-    var url = "mapPopup.html?location="+location;
+    var url = "/blog/templates/blog/mapPopup?location="+location;
     var name = "mapPopup";
     var option = "width = 800, height = 600, location = no"
     window.open(url, name, option);
 }
 
 function officeInfo(info) {
-    var url = "officeInfo.html?location="+info;
+    var url = "/blog/templates/blog/officeInfo?location="+info;
     var name = "officeInfo";
-    var option = "width = 800, height = 600, location = no"
-    window.open(url, name, option);
-}
-
-// 안내 텍스트 새 창으로 띄우는 함수
-function textPopup(text) {
-    var url = "textPopup.html?location="+location;
-    var name = "textPopup";
     var option = "width = 800, height = 600, location = no"
     window.open(url, name, option);
 }

@@ -1,14 +1,15 @@
 function sendPos() {
   if(landmarks == null || recognizing) {
-    setTimeout(sendPos, 100);
+    setTimeout(sendPos, 17);
     return;
   }
+  /*
   endTime = new Date()
   time = endTime.getTime() - startTime.getTime();
   time /= 1000;
   if(time > 2) {
     resultElement.innerHTML = "";
-  }
+  }*/
 
   $.ajax({
     type: "POST",
@@ -16,21 +17,24 @@ function sendPos() {
     data: JSON.stringify(landmarks),
     dataType: "json",
     success:function(data){
-      if(data.word != '' && data.acc >= 95) {
+      resultElement.innerHTML = data.word;
+      answer(data.word);
+      sendPos();
+      /*if(data.word != '' && data.acc >= 95) {
         if(time <= 2) {
-          startTime = new Date();
+          //startTime = new Date();
           resultElement.innerHTML += " " + data.word;
         }
         else {
-          startTime = new Date();
+          //startTime = new Date();
           resultElement.innerHTML = data.word;
         }
-        setTimeout(sendPos, 500);
+        setTimeout(sendPos, 17);
         //console.log(data.word);
       }
       else {
         sendPos();
-      }
+      }*/
     },
     error: function(request,status,error) {
       sendPos();
@@ -48,5 +52,5 @@ $.ajax({
 })
 */
 window.onload = function() {
-  //setTimeout(sendPos, 100);
+  setTimeout(sendPos, 16);
 }
