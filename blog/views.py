@@ -24,6 +24,7 @@ inputWords = ""
 conn = None
 cur = None
 portNum = 3307
+startTime = datetime.datetime.now()
 
 def mainPage(request):
     init()
@@ -50,8 +51,6 @@ def translationPage(request):
 '''
 
 def init():
-    conn = pymysql.connect(host="127.0.0.1", port=portNum, user="root", password="1234", db="office", charset="utf8")
-    cur = conn.cursor()
     '''
     if request.method == 'POST':
         ip, is_routable = get_client_ip(request)
@@ -70,6 +69,10 @@ def init():
 
 @csrf_exempt
 def interface(request):
+    conn = pymysql.connect(host="127.0.0.1", port=portNum, user="root", password="1234", db="office", charset="utf8")
+    cur = conn.cursor()
+    startTime = datetime.datetime.now()
+    inputWords = ""
     return render(request, 'blog/interface.html')
 
 @csrf_exempt
@@ -98,15 +101,14 @@ def ajax(request):
             word = ''
             acc = 0
         else:
-            inputWords += word + " "
+            #inputWords += word + " "
             startTime = datetime.datetime.now()
-        
         #아무것도 입력받지 못한 시간이 2초가 넘어가면 텍스트 초기화
-        diff = datetime.datetime.now() - startTime
-        if diff.seconds >= 2:
-            inputWords = ""
+        #diff = datetime.datetime.now() - startTime
+        #if diff.seconds >= 2:
+        #    inputWords = ""
 
-    content = { 'word': inputWords,
+    content = { 'word': "",
                 'acc': acc } 
     
     #return HttpResponse(json.dumps(content), content_type="application/json")
@@ -135,7 +137,7 @@ def officeInfo(request):
         row = cur.fetchone() 
         data = {
             'loc':row[0],
-            'num':row[1],
+            'tel':row[1],
             'note':row[2]
         }
         
