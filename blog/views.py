@@ -23,7 +23,7 @@ lastRun = {}
 inputWords = ""
 conn = None
 cur = None
-portNum = 3306
+portNum = 3307
 
 def mainPage(request):
     init()
@@ -119,7 +119,7 @@ def officeInfo(request):
         conn = pymysql.connect(host="127.0.0.1", port=portNum, user="root", password="1234", db="office", charset="utf8")
         cur = conn.cursor()
         location = request.GET['location']
-        sql = "select loc, num, note from info where deptName="
+        sql = "select loc, tel, note from info where deptName="
         if location == 'CS':
             sql += "'융소과'"
         elif location == 'IC':
@@ -128,8 +128,8 @@ def officeInfo(request):
             sql += "'게임과'"
         elif location == 'IT':
             sql += "'IT과'"
-        elif location == 'Nur':
-            sql += "'간호과'"
+        elif location == 'Vid':
+            sql += "'영상과'"
 
         cur.execute(sql)
         row = cur.fetchone() 

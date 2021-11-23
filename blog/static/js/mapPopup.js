@@ -14,8 +14,8 @@ function answer() {
             info = "Game";
         else if(check(words, "IT과"))
             info = "IT";
-        else if(check(words, "간호과"))
-            info = "Nur";
+        else if(check(words, "영상과"))
+            info = "Vid";
         else {
             return;
         }
