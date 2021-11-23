@@ -5,6 +5,15 @@ import numpy as np
 import cv2
 import mediapipe as mp
 
+classes = [
+    "-", "융소과", "효행관", "사무실", "정보", "위치"
+]
+
+width = 1280
+height = 720
+size = 64
+modelPath = 'model/ver1.0.0'
+
 def rgb2gray(rgb):
     return np.dot(rgb[...,:3], [0.2989, 0.5870, 0.1140])
 
@@ -62,14 +71,6 @@ classes = [
     "이쪽", "좋다", "컴퓨터", "헤어지다", "화장실"
 ]
 '''
-classes = [
-    "-", "융소과", "효행관", "사무실", "정보", "위치"
-]
-
-
-width = 1280
-height = 720
-size = 64
 
 #모델 만들기
 class myModel():
@@ -78,7 +79,7 @@ class myModel():
         self.new_model = Conv3DModel()
         self.new_model.compile(loss='sparse_categorical_crossentropy',
                         optimizer=tf.keras.optimizers.RMSprop())
-        modelURL = staticfiles_storage.path('model/test')
+        modelURL = staticfiles_storage.path(modelPath)
         self.new_model.load_weights(modelURL)
 
         self.mpHands = mp.solutions.hands
