@@ -1,8 +1,8 @@
-function answer() {
-    var words = document.getElementById("txt").value;
+function answer(words) {
+    //var words = document.getElementById("txt").value;
     var ans = "";
     
-    //사무실 위치
+    //사무실 정보
 	if(check(words, "사무실", "정보")) {
         var info = "";
 
@@ -20,6 +20,7 @@ function answer() {
             return;
         }
         officeInfo(info);
+        console.log("사무실 정보 창 띄움");
         return;
     }
         
@@ -47,6 +48,7 @@ function answer() {
             return;
         }
         mapPopup(location);
+        console.log("맵 창 띄움");
         return;
     }
 	else

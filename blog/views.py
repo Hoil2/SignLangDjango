@@ -15,6 +15,7 @@ from .test_app import * #.을 붙여야 함
 import datetime
 import threading
 import pymysql
+import time
 
 modelList = {}
 ipList = []
@@ -24,7 +25,7 @@ inputWords = ""
 conn = None
 cur = None
 portNum = 3307
-startTime = datetime.datetime.now()
+startTime = time.time()
 
 def mainPage(request):
     init()
@@ -71,7 +72,7 @@ def init():
 def interface(request):
     conn = pymysql.connect(host="127.0.0.1", port=portNum, user="root", password="1234", db="office", charset="utf8")
     cur = conn.cursor()
-    startTime = datetime.datetime.now()
+    startTime = time.time()
     inputWords = ""
     return render(request, 'blog/interface.html')
 
@@ -82,7 +83,7 @@ def ajax(request):
         ip, _ = get_client_ip(request)
         #print("마지막 실행 시간: ", lastRun[0])
         
-        lastRun[ip] = datetime.datetime.now() #마지막 실행 시간 기록
+        lastRun[ip] = time.time() #마지막 실행 시간 기록
         
         #print("현재 ip: ", ip)
         #print("ipList index: ",ipList[ip])
@@ -96,19 +97,13 @@ def ajax(request):
         except KeyError:
             modelList[ip] = myModel()
             word, acc = modelList[ip].predictImages(img)
+            return JsonResponse({'word': "", 'acc': 0})
             
         if word == None or word == '-':
             word = ''
             acc = 0
-        else:
-            #inputWords += word + " "
-            startTime = datetime.datetime.now()
-        #아무것도 입력받지 못한 시간이 2초가 넘어가면 텍스트 초기화
-        #diff = datetime.datetime.now() - startTime
-        #if diff.seconds >= 2:
-        #    inputWords = ""
-
-    content = { 'word': "",
+        
+    content = { 'word': word,
                 'acc': acc } 
     
     #return HttpResponse(json.dumps(content), content_type="application/json")
@@ -116,7 +111,6 @@ def ajax(request):
 
 @csrf_exempt
 def officeInfo(request):
-    
     if request.method == 'GET':
         conn = pymysql.connect(host="127.0.0.1", port=portNum, user="root", password="1234", db="office", charset="utf8")
         cur = conn.cursor()
@@ -153,6 +147,7 @@ def readb64(uri):
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     return img
 
+# (사용되지 않음)
 def removeUserInfo():
     print("유저 정보 삭제 실행")
     for ip in ipList:

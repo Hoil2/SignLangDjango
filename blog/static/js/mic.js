@@ -100,6 +100,7 @@ recognition.onresult = function(event) {
     if (final_transcript || interim_transcript) {
     showButtons('inline-block');
     }
+    answer(resultElement.innerHTML);
 };
 }
 
@@ -130,7 +131,7 @@ final_transcript = '';
 recognition.start();
 ignore_onend = false;
 //final_span.innerHTML = '';
-interim_span.innerHTML = '';
+//interim_span.innerHTML = '';
 start_img.src = micSlashPath;
 //showInfo('info_allow');
 showButtons('none');

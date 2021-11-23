@@ -40,7 +40,7 @@ class Conv3DModel(tf.keras.Model):
 
 #예측 단어
 # test
-'''
+
 classes = [
     "왼쪽", "오른쪽", "화장실", "오늘"
     ]
@@ -49,6 +49,7 @@ classes = [
 classes = [
     "-", "오른쪽", "왼쪽",  "화장실", "어디"
     ]
+'''
 # model
 '''
 classes = [
@@ -64,6 +65,7 @@ classes = [
 
 width = 1280
 height = 720
+size = 128
 
 #모델 만들기
 class myModel():
@@ -72,7 +74,7 @@ class myModel():
         self.new_model = Conv3DModel()
         self.new_model.compile(loss='sparse_categorical_crossentropy',
                         optimizer=tf.keras.optimizers.RMSprop())
-        modelURL = staticfiles_storage.path('model/test2')
+        modelURL = staticfiles_storage.path('model/test')
         self.new_model.load_weights(modelURL)
 
         self.mpHands = mp.solutions.hands
@@ -80,7 +82,7 @@ class myModel():
 
         self.to_predict = []
         self.thickness = 10
-        self.size = 128
+        self.size = size
 
     def predictImages(self, frame):
         self.classe =''

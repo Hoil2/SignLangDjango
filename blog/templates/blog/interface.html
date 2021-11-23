@@ -34,13 +34,13 @@
             <h1>
               <div id="results">
                   수어를 입력해주십시오
-                  <form>
-                    <input type="text" id="txt">
-                    <input type="submit" onclick="answer()">
-                </form>
-                  <span id="final_span" class="final"></span>
-                  <span id="interim_span" class="interim"></span>
+                  <!--<span id="final_span" class="final"></span>
+                  <span id="interim_span" class="interim"></span>-->
               </div>
+              <form>
+                <input type="text" id="txt">
+                <input type="submit" onclick="answer()">
+            </form>
               <div class="center">
               <!-- 안내문자, 언어 설정 버튼 -->
               <div id="div_language">
@@ -48,8 +48,8 @@
                 <select id="select_dialect"></select>
               </div>
               <script src="/blog/static/js/landmark.js"></script>
-              <script src="/blog/static/js/mic.js"></script>
               <script src="/blog/static/js/mapPopup.js"></script>
+              <script src="/blog/static/js/mic.js?v=1"></script>
               <script src="/blog/static/js/ajax.js"></script>
             </h1>
     </body>

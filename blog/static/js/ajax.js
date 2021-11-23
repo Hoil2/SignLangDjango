@@ -1,15 +1,16 @@
 function sendPos() {
   if(landmarks == null || recognizing) {
+    
     setTimeout(sendPos, 17);
     return;
   }
-  /*
+  
   endTime = new Date()
   time = endTime.getTime() - startTime.getTime();
   time /= 1000;
   if(time > 2) {
     resultElement.innerHTML = "";
-  }*/
+  }
 
   $.ajax({
     type: "POST",
@@ -17,24 +18,20 @@ function sendPos() {
     data: JSON.stringify(landmarks),
     dataType: "json",
     success:function(data){
-      resultElement.innerHTML = data.word;
-      answer(data.word);
-      sendPos();
-      /*if(data.word != '' && data.acc >= 95) {
-        if(time <= 2) {
-          //startTime = new Date();
-          resultElement.innerHTML += " " + data.word;
+      if(data.word != '' && data.acc >= 80) {
+        if(resultElement.innerHTML.indexOf(data.word) < 0) {
+          startTime = new Date();
+          if(time <= 2) {
+            resultElement.innerHTML += " " + data.word;
+            answer(resultElement.innerHTML);
+          }
+          else {
+            resultElement.innerHTML = data.word;
+          }
         }
-        else {
-          //startTime = new Date();
-          resultElement.innerHTML = data.word;
-        }
-        setTimeout(sendPos, 17);
         //console.log(data.word);
       }
-      else {
-        sendPos();
-      }*/
+      sendPos();
     },
     error: function(request,status,error) {
       sendPos();
