@@ -40,10 +40,11 @@ class Conv3DModel(tf.keras.Model):
 
 #예측 단어
 # test
-
+'''
 classes = [
     "왼쪽", "오른쪽", "화장실", "오늘"
     ]
+'''
 '''
 # test2
 classes = [
@@ -61,11 +62,14 @@ classes = [
     "이쪽", "좋다", "컴퓨터", "헤어지다", "화장실"
 ]
 '''
+classes = [
+    "-", "융소과", "효행관", "사무실", "정보", "위치"
+]
 
 
 width = 1280
 height = 720
-size = 128
+size = 64
 
 #모델 만들기
 class myModel():
