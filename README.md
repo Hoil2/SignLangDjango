@@ -39,6 +39,9 @@ Googld MediaPipe를 사용한 손의 뼈대 추출
 ## 테스트
 ![image](https://user-images.githubusercontent.com/71717840/204175410-fc33b9e9-3f8b-4488-a0da-5a87bae67e3f.png) <br>
 
+## 동작 화면
+![1639330471474](https://user-images.githubusercontent.com/71717840/206896238-834f50a0-c7b7-470e-a1e0-777bf4d3d471.jpg)
+![1639330471517](https://user-images.githubusercontent.com/71717840/206896240-d373c793-d8c8-437c-b801-47eb039dd694.jpg)
 
 ## 인식 동작
 
