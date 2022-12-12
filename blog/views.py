@@ -15,36 +15,44 @@ from .test_app import * #.을 붙여야 함
 import datetime
 import threading
 import pymysql
+import time
 
 modelList = {}
 ipList = []
 lastRun = {}
 
+inputWords = ""
+conn = None
+cur = None
+portNum = 3307
+startTime = time.time()
+
 def mainPage(request):
+    init()
     return render(request, 'blog/index.html', {})
     
+'''
 @csrf_exempt
 def translationPage(request):
-    '''
-    conn = pymysql.connect(host="127.0.0.1", user="root", password="1234", db="test", charset="utf8")
-    cur = conn.cursor()
-
-    sql = "select * from test_table where name='김홍일'"
+    sql = "select * from info where deptName='융소과'"
     cur.execute(sql)
 
     row = cur.fetchone()
-    print("이름 : " + row[0] + " 나이 : " + str(row[1]))
+    #print("학과 : " + row[0] + " 나이 : " + str(row[1]))
     data = {
-        'name' : row[0],
-        'age' : row[1]
+        'deptName' : row[0],
+        'loc' : row[1],
+        'num' : row[2],
+        'note' : row[3]
     }
 
     conn.close()    # 접속 종료
-    '''
-    return render(request, 'blog/interface.html', {})
+    
+    return render(request, 'blog/officeInfo.html', data)
+'''
 
-@csrf_exempt
-def init(request):
+def init():
+    '''
     if request.method == 'POST':
         ip, is_routable = get_client_ip(request)
         print("초기화")
@@ -58,7 +66,15 @@ def init(request):
                 print("ip 등록 ", ip)
 
     content = { 'ip':  ip }
-    return JsonResponse(content)
+    '''
+
+@csrf_exempt
+def interface(request):
+    conn = pymysql.connect(host="127.0.0.1", port=portNum, user="root", password="1234", db="office", charset="utf8")
+    cur = conn.cursor()
+    startTime = time.time()
+    inputWords = ""
+    return render(request, 'blog/interface.html')
 
 @csrf_exempt
 def ajax(request):
@@ -67,9 +83,8 @@ def ajax(request):
         ip, _ = get_client_ip(request)
         #print("마지막 실행 시간: ", lastRun[0])
         
-        lastRun[ip] = datetime.datetime.now() #마지막 실행 시간 기록
+        lastRun[ip] = time.time() #마지막 실행 시간 기록
         
-
         #print("현재 ip: ", ip)
         #print("ipList index: ",ipList[ip])
         json_data = json.loads(request.body)
@@ -82,6 +97,7 @@ def ajax(request):
         except KeyError:
             modelList[ip] = myModel()
             word, acc = modelList[ip].predictImages(img)
+            return JsonResponse({'word': "", 'acc': 0})
             
         if word == None or word == '-':
             word = ''
@@ -93,12 +109,45 @@ def ajax(request):
     #return HttpResponse(json.dumps(content), content_type="application/json")
     return JsonResponse(content)
 
+@csrf_exempt
+def officeInfo(request):
+    if request.method == 'GET':
+        conn = pymysql.connect(host="127.0.0.1", port=portNum, user="root", password="1234", db="office", charset="utf8")
+        cur = conn.cursor()
+        location = request.GET['location']
+        sql = "select loc, tel, note from info where deptName="
+        if location == 'CS':
+            sql += "'융소과'"
+        elif location == 'IC':
+            sql += "'정통과'"
+        elif location == 'Game':
+            sql += "'게임과'"
+        elif location == 'IT':
+            sql += "'IT과'"
+        elif location == 'Vid':
+            sql += "'영상과'"
+
+        cur.execute(sql)
+        row = cur.fetchone() 
+        data = {
+            'loc':row[0],
+            'tel':row[1],
+            'note':row[2]
+        }
+        
+    return render(request, 'blog/officeInfo.html', data)
+
+@csrf_exempt
+def mapPopup(request):
+    return render(request, 'blog/mapPopup.html')
+# (사용되지 않음)텍스트를 이미지로 변환하는 코드
 def readb64(uri):
     encoded_data = uri.split(',')[1]
     nparr = np.frombuffer(base64.b64decode(encoded_data), np.uint8)
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
     return img
 
+# (사용되지 않음)
 def removeUserInfo():
     print("유저 정보 삭제 실행")
     for ip in ipList:
@@ -110,4 +159,4 @@ def removeUserInfo():
             del lastRun[ip]
     threading.Timer(600, removeUserInfo).start()
 
-threading.Timer(600, removeUserInfo).start()
+#threading.Timer(600, removeUserInfo).start()

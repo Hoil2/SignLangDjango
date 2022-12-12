@@ -10,7 +10,9 @@ from . import views
 
 urlpatterns = [
     path('', views.mainPage, name='mainPage'),
-    path('interface', views.translationPage, name='translationPage'),
+    path('blog/templates/blog/officeInfo', views.officeInfo, name='officeInfo'),
+    path('blog/templates/blog/mapPopup', views.mapPopup, name='mapPopup'),
+    path('interface', views.interface, name='interface'),
     path('ajax', views.ajax, name='ajax'),
     path('init', views.init, name='init'),
 ]
